@@ -1,0 +1,314 @@
+header {
+    display: flex;
+    width: 100%;
+    font-family: "Poppins", serif;
+}
+
+.company-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 17.6%;
+    background: #405189;
+    color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.company-name img {
+    width: 55px;
+    height: 50px;
+}
+
+.company-name h1 {
+    font-size: 36px;
+}
+
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.header-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-toggle h1 {
+    font-size: 30px;
+}
+
+.header-toggle i {
+    font-size: 20px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    gap: 10px;
+}
+
+.user img {
+    width: 30px;
+    height: 30px;
+}
+
+.toggle-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+.sidebar {
+    width: 12.7%;
+    background: #405189;
+    color: #FFFFFF;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    font-family: "Poppins", serif;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+
+}
+
+.sidebar.visible {
+    transform: translateX(0);
+}
+
+sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sidebar-menu {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #CBD7FF;
+    padding: 5px;
+}
+
+.sidebar-menu:hover {
+    color: #FFFFFF;
+}
+
+.sidebar-menu img {
+    width: 30px;
+    height: 30px;
+}
+
+.content-area {
+    display: flex;
+}
+
+.layout-area {
+    background-color: #f1f1f1;
+    width: 85%;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+
+.header-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.content-area {
+    display: flex;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.sidebar {
+    background-color: #405189;
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.hidden {
+    width: 0;
+}
+
+.layout-area {
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar-menu-i {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    padding-left: 10px;
+    background-color: #405189;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu p {
+    cursor: pointer;
+    color: #CBD7FF;
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.dropdown-menu p:hover {
+    color: #FFFFFF;
+}
+
+
+.sidebar-hidden .sidebar {
+    display: none;
+}
+
+.sidebar-hidden .company-name {
+    display: none;
+}
+
+.sidebar-visible .sidebar {
+    display: block;
+}
+
+.sidebar-visible .company-name {
+    display: flex;
+}
+
+
+@media screen and (max-width:1440px) {
+    .sidebar {
+        width: 12.55%;
+    }
+}
+
+
+@media screen and (min-width: 1024px) and (max-width: 1430px) {
+
+    .company-name img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .company-name h1 {
+        font-size: 26px;
+        margin-right: 2px;
+    }
+
+    .header-toggle h1 {
+        font-size: 30px;
+    }
+
+    .header-toggle i {
+        font-size: 18px;
+    }
+
+    .user {
+
+        font-size: 16px;
+    }
+
+    .user img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .sidebar-menu {
+        font-size: 16px;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .sidebar {
+        padding: 10.5px;
+    }
+
+    .sidebar-menu img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .dropdown-menu p {
+        font-size: 14px;
+        padding-bottom: 4px;
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1020px) {
+
+    .company-name img {
+        width: 35px;
+        height: 30px;
+    }
+
+    .company-name h1 {
+        font-size: 18px;
+    }
+
+    .header-toggle h1 {
+        font-size: 20px;
+    }
+
+    .header-toggle i {
+        font-size: 14px;
+    }
+
+    .user {
+
+        font-size: 12px;
+    }
+
+    .user img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sidebar-menu {
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .sidebar {
+        padding: 8px;
+    }
+
+    .sidebar-menu img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dropdown-menu p {
+        font-size: 10px;
+        padding-bottom: 3px;
+    }
+}

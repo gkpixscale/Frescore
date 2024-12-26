@@ -1,0 +1,253 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.layout {
+    display: flex;
+
+}
+
+hr {
+    background-color: #405189;
+}
+
+.layout1 {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-frame {
+    font-family: "Poppins", serif;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.same-div img {
+    width: 70px;
+    height: 60px;
+    margin: 10px;
+}
+
+.same-div p {
+    font-size: 16px;
+}
+
+.same-div h1 {
+    font-size: 30px;
+}
+
+.line {
+    height: 100px;
+}
+
+.same-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.line-chart {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin: 10px;
+    font-family: "Poppins", serif;
+
+}
+
+.line-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #405189;
+}
+
+.line-header p h2 {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.line-header p {
+    font-size: 16px;
+}
+
+.line-header p span {
+    font-size: 20px;
+}
+
+.line-chart-btn {
+    display: flex;
+    gap: 10px;
+}
+
+.line-chart-btn button {
+    padding: 5px 15px;
+    border: 0.5px solid;
+    border-radius: 10px;
+    color: #405189;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #CBD7FF;
+}
+
+.layout2 {
+    width: 30%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pi-chart {
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    font-family: "Poppins", serif;
+
+}
+
+.pi-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.chart {
+    width: auto;
+    height: 270px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.pi-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.pi-header button {
+    padding: 5px 10px;
+    border: 0.5px solid;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    align-items: center;
+    background-color: #CBD7FF;
+    color: #405189;
+}
+
+
+.progress-chart {
+    text-align: center;
+    height: 200px;
+}
+
+.span1 {
+    background-color: #00C5D5;
+    padding: 0px 10px;
+}
+
+.span2 {
+    background-color: #405189;
+    padding: 0px 10px;
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .same-div img {
+        width: 50px;
+        height: 44px;
+        margin: 5px;
+    }
+
+    .same-div p {
+        font-size: 14px;
+    }
+
+    .same-div h1 {
+        font-size: 24px;
+    }
+
+    .line {
+        height: 80px;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .line-header p h2 {
+        font-size: 20px;
+    }
+
+    .line-header p {
+        font-size: 14px;
+    }
+
+    .line-chart-btn button {
+        font-size: 16px;
+    }
+
+    .pi-header h2 {
+        font-size: 20px;
+    }
+
+    .pi-header button {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .same-div img {
+        width: 40px;
+        height: 33px;
+    }
+
+    .same-div p {
+        font-size: 8px;
+    }
+
+    .same-div h1 {
+        font-size: 16px;
+    }
+
+    .line {
+        height: 60px;
+    }
+
+    .text {
+        font-size: 10px;
+    }
+
+    .text {
+        font-size: 10px;
+    }
+
+    .line-header p h2 {
+        font-size: 18px;
+    }
+
+    .line-header p {
+        font-size: 10px;
+    }
+
+    .line-chart-btn button {
+        font-size: 12px;
+    }
+
+    .pi-header h2 {
+        font-size: 14px;
+    }
+
+    .pi-header button {
+        font-size: 10px;
+    }
+}

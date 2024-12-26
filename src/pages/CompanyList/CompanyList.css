@@ -1,0 +1,269 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
+.company-list {
+    width: 98%;
+    height: 140px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    font-family: "Poppins", serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.company-list h1 {
+    padding: 0px 10px;
+    font-size: 30px;
+}
+
+.company-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.company-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.add {
+    font-size: 22px;
+    padding: 0px 90px;
+    border-radius: 10px;
+    background-color: #364574;
+    color: #FFFFFF;
+    font-weight: 600;
+    border: none;
+    height: 50px
+}
+
+.search {
+    position: relative;
+    color: #aaa;
+    font-size: 16px;
+}
+
+.search {
+    display: inline-block;
+}
+
+.search input {
+    width: 250px;
+    height: 32px;
+    border: 1px solid #BDBFC7;
+    border-radius: 5px;
+    padding-right: 50px;
+}
+
+.search input {
+    text-indent: 32px;
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 10px;
+}
+
+.search .fa-search {
+    left: auto;
+    right: 10px;
+}
+
+.company-list-table {
+    width: 98%;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    font-family: "Poppins", serif;
+}
+
+.company-list-table p {
+    font-size: 16px;
+    color: #332F2D;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+
+}
+
+.company-list-table-btn i {
+    font-size: 20px;
+}
+
+.company-list-table-btn {
+    padding: 5px 10px;
+    border: none;
+    background-color: #EEF7FF;
+    border-radius: 10px;
+}
+
+table {
+    display: block;
+    width: 98%;
+    border-collapse: collapse;
+    margin: 5px 10px;
+}
+
+thead {
+    display: block;
+    background-color: #f4f4f4;
+}
+
+tbody {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+th,
+td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    text-align: left;
+    /* border: 1px solid #ccc; */
+    flex: 1;
+}
+
+tr {
+    display: flex;
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+th {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+tbody {
+    border: 2px solid #364574;
+    border-left: none;
+    border-right: none;
+}
+
+.page {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.btn {
+    padding: 1px 5px;
+    border: 0.8px solid;
+    border-radius: 4px;
+}
+
+.table-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.last-btn {
+    font-size: 22px;
+    margin: 10px;
+    padding: 0px 90px;
+    border: 1.5px solid #364574;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    color: #364574;
+    font-weight: 600;
+    height: 50px
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1430px) {
+    .company-list {
+        height: 120px;
+    }
+
+    .company-list h1 {
+        padding: 0px 10px;
+        font-size: 22px;
+    }
+
+    .search input {
+        padding-right: 0px;
+    }
+
+    .add {
+        font-size: 18px;
+        padding: 0px 70px;
+        height: 40px;
+    }
+
+    tbody {
+        max-height: 250px;
+    }
+
+    th,
+    td {
+        padding: 5px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .table-icons {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .last-btn {
+        font-size: 18px;
+        padding: 0px 70px;
+        height: 40px;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .company-list {
+        height: 100px;
+    }
+
+    .company-list h1 {
+        padding: 0px 10px;
+        font-size: 20px;
+    }
+
+    .search input {
+        padding-right: 0px;
+    }
+
+    .add {
+        font-size: 16px;
+        padding: 0px 50px;
+        height: 30px;
+    }
+
+    tbody {
+        max-height: 200px;
+    }
+
+    th,
+    td {
+        padding: 2px;
+    }
+
+    p {
+        font-size: 10px;
+    }
+
+    .table-icons {
+        display: flex;
+        gap: 10px;
+    }
+    .last-btn {
+        font-size: 16px;
+        padding: 0px 40px;
+        height: 30px;
+    }
+}
