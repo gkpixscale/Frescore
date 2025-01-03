@@ -145,7 +145,9 @@ const CompanyList = () => {
                                     <td>Frescor</td>
                                     <td>Frescor</td>
                                     <td>+91 99999 88888</td>
-                                    <td><div className='table-icons'><i class="fa-solid fa-trash"></i><i class="fa-regular fa-eye"></i><i class="fa-solid fa-pen-to-square"></i></div></td>
+                                    <td><div className='table-icons'><i class="fa-solid fa-trash"></i><i class="fa-regular fa-eye"></i>
+                                        <i class="fa-solid fa-pen-to-square"></i></div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
