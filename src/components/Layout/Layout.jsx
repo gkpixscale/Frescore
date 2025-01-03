@@ -1,5 +1,5 @@
 import React from 'react';
-import './Layout.css';
+import './layout.css';
 import group from '../../assets/grp.png';
 import group1 from '../../assets/Group1.png';
 import group2 from '../../assets/Group2.png';

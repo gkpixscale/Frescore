@@ -10,24 +10,20 @@ import frame3 from '../../assets/Frame3.png';
 import frame4 from '../../assets/Frame4.png';
 import frame5 from '../../assets/Frame5.png';
 import frame6 from '../../assets/Frame6.png';
-import { TextField } from "@mui/material"
-import { Controller, useForm } from "react-hook-form"
-import LogoUploader from '../../components/LogoUploader/LogoUploader';
-import Box from '@mui/material/Box';
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-
+import InputBox from '../../components/input/Input';
+import Grid from "@mui/material/Grid2";
+import FileUpload from '../../components/Upload/FileUpload';
 
 const CompanyDeatails = () => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
     const [isMasterDropdownVisible, setIsMasterDropdownVisible] = useState(false);
     const navigate = useNavigate();
-
-    // Initialize the form using useForm
     const { control, handleSubmit } = useForm({
         defaultValues: {
             companyName: "",
             legalName: "",
-            logoUpload: "",
             phoneNumber: "",
             alternativePhoneNumber: "",
             gst: "",
@@ -40,10 +36,15 @@ const CompanyDeatails = () => {
             ifscCode: "",
             accountHolderName: "",
             swiftCode: "",
-            address: ""
-        },
-        mode: "onChange"
+            address: "",
+            logo: "",
+            qrCode: ""
+        }
     });
+
+    const onSubmit = (data) => {
+        console.log("Form Data:", data);
+    };
 
     const toggleSidebar = () => {
         setIsSidebarVisible((prev) => !prev);
@@ -58,7 +59,6 @@ const CompanyDeatails = () => {
     };
 
     return (
-
         <div className={`home-container ${isSidebarVisible ? 'sidebar-visible' : 'sidebar-hidden'}`}>
             <header>
                 <div className={`company-name ${isSidebarVisible ? '' : 'hidden'}`}>
@@ -105,11 +105,10 @@ const CompanyDeatails = () => {
                             <p>- Material Stock History</p>
                             <p>- Category Details</p>
                             <p>- Sub Category</p>
-                            <p>- FAQ Details </p>
+                            <p>- FAQ Details</p>
                             <p>- Role Datails</p>
                             <p>- Material stock</p>
                             <p>- Master Details</p>
-
                         </div>
                     )}
                     <div className="sidebar-menu">
@@ -135,641 +134,480 @@ const CompanyDeatails = () => {
                 </div>
                 <div className="layout-area">
                     <div className="company-deatails">
-                        <form onSubmit={handleSubmit((data) => console.log(data))}>
-                            <div className='from-main-div'>
-                                <h1>Company Details Add or Edit</h1>
-                                <div className='form-div'>
-                                    <div className='form-subdiv'>
-                                        <Controller
-                                            name="companyName"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Company Name is required"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>
-                                                                Company Name<span>*</span>
-                                                            </p>
-                                                            <TextField
-                                                                fullWidth={true}
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                placeholder='Company Name'
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '1px  #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                );
-                                            }}
-                                        />
-                                        <Controller
-                                            name="phoneNumber"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Phone Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Phone Number<span>*</span></p>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className='edit-form'>
+                                <h2>Company Details Add or Edit</h2>
+                                {/* -------------------- Frist Grid -------------------- */}
+                                {/*  */}
+                                <Grid container spacing={1}>
+                                    <Grid size={{ xs: 8, md: 8 }}>
+                                        <Grid container spacing={1}>
+                                            <Grid size={{ md: 12, xs: 6 }}>
+                                                <Grid container spacing={1}>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="companyName"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'Company name is required',
+                                                                pattern: {
+                                                                    value: /^[A-Za-z\s]+$/,
+                                                                    message: 'Company name can only contain letters and spaces',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                                const handleInputChange = (e) => {
+                                                                    const inputValue = e.target.value;
+                                                                    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
+                                                                    onChange(filteredValue);
+                                                                };
 
+                                                                return (
+                                                                    <InputBox
+                                                                        value={value}
+                                                                        onChange={handleInputChange}
+                                                                        label="Company Name"
+                                                                        name="companyName"
+                                                                        placeholder="Frescor"
+                                                                        error={error}
+                                                                    />
+                                                                );
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="legalName"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'Company name is required',
+                                                                pattern: {
+                                                                    value: /^[A-Za-z\s]+$/,
+                                                                    message: 'Company name can only contain letters and spaces',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                                const handleInputChange = (e) => {
+                                                                    const inputValue = e.target.value;
+                                                                    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
+                                                                    onChange(filteredValue);
+                                                                };
 
+                                                                return (
+                                                                    <InputBox
+                                                                        value={value}
+                                                                        onChange={handleInputChange}
+                                                                        label="Legal Name"
+                                                                        name="legalName"
+                                                                        placeholder="Frescor"
+                                                                        error={error}
+                                                                    />
+                                                                );
+                                                            }}
+                                                        />
 
-
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className='form-subdiv'>
-                                        <Controller
-                                            name="legalName"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Legal Name is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Legal Name<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="alternativePhoneNumber"
-                                            control={control}
-                                            rules={{
-                                                required: false
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Alternative Phone Number</p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="form-subdiv">
-                                        <LogoUploader />
-                                    </div>
-                                </div>
-                                <div className='form-div'>
-                                    <div className="form-subdiv">
-                                        <Controller
-                                            name="gst"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "GST Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>GST<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="cin"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "CIN Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>CIN<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="form-subdiv">
-                                        <Controller
-                                            name="pan"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "PAN Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>PAN<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="tan"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "TAN Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>TAN<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="form-subdiv">
-                                        {/* <Controller
-                                        name="logoUpload"
-                                        control={control}
-                                        rules={{
-                                            required: false
-                                        }}
-                                        render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                            return (
-                                                <div className='input'>
-                                                    <i class="fa-solid fa-upload"></i>
-                                                    <input
-                                                        type="file"
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid size={{ md: 12, xs: 6 }} >
+                                                <Grid container spacing={1}>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="phoneNumber"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'Phone Number is required',
+                                                                pattern: {
+                                                                    value: /^[0-9]{10}$/,
+                                                                    message: 'Please enter a valid phone number in the format 99999 88888',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                                const handleInputChange = (e) => {
+                                                                    let inputValue = e.target.value;
+                                                                    inputValue = inputValue.replace(/[^0-9]/g, '');
+                                                                    if (inputValue.length > 10) {
+                                                                        inputValue = inputValue.slice(0, 10);
+                                                                    }
+                                                                    onChange(inputValue);
+                                                                };
+                                                                return (
+                                                                    <InputBox
+                                                                        value={value}
+                                                                        onChange={handleInputChange}
+                                                                        label="Phone Number"
+                                                                        name="phoneNumber"
+                                                                        placeholder="+91 99999 88888"
+                                                                        error={error}
+                                                                    />
+                                                                );
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="alternativePhoneNumber"
+                                                            control={control}
+                                                            rules={{
+                                                                pattern: {
+                                                                    value: /^[0-9]{10}$/,
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                                const handleInputChange = (e) => {
+                                                                    let inputValue = e.target.value;
+                                                                    inputValue = inputValue.replace(/[^0-9]/g, '');
+                                                                    if (inputValue.length > 10) {
+                                                                        inputValue = inputValue.slice(0, 10);
+                                                                    }
+                                                                    onChange(inputValue);
+                                                                };
+                                                                return (
+                                                                    <InputBox
+                                                                        value={value}
+                                                                        onChange={handleInputChange}
+                                                                        label="Alternative Phone Number"
+                                                                        name="alternativePhoneNumber"
+                                                                        placeholder="+91 99999 88888"
+                                                                        error={error}
+                                                                    />
+                                                                );
+                                                            }}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid size={{ xs: 4, md: 4 }}>
+                                        <Grid container spacing={1}>
+                                            <FileUpload />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                {/*  */}
+                                {/* -------------------- Second Grid -------------------- */}
+                                {/*  */}
+                                <Grid container spacing={1}>
+                                    <Grid size={{ xs: 8, md: 8 }}>
+                                        <Grid container spacing={1}>
+                                            <Grid size={{ md: 12, xs: 6 }}>
+                                                <Grid container spacing={1}>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="gst"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'GST Number is required',
+                                                                pattern: {
+                                                                    value: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[A-Z]{1}[A-Z0-9]{1}$/,
+                                                                    message: 'Please enter a valid GST number in the format 00AAAAA0000A0A0',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                                <InputBox
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    label="GST"
+                                                                    name="gst"
+                                                                    placeholder="00AAAAA0000A0A0"
+                                                                    error={error}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="pan"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'PAN Number is required',
+                                                                pattern: {
+                                                                    value: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+                                                                    message: 'Please enter a valid PAN number in the format AAAAA0000A',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                                <InputBox
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    label="PAN"
+                                                                    name="pan"
+                                                                    placeholder="AAAAA0000A"
+                                                                    error={error}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid size={{ md: 12, xs: 6 }} >
+                                                <Grid container spacing={1}>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="cin"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'CIN Number is required',
+                                                                pattern: {
+                                                                    value: /^[A-Z]{1}[0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}$/,
+                                                                    message: 'Please enter a valid CIN number in the format A00000AA0000AAA000000',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                                <InputBox
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    label="CIN"
+                                                                    name="cin"
+                                                                    placeholder="A00000AA0000AAA000000"
+                                                                    error={error}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                    <Grid size={{ xs: 12, md: 6 }}>
+                                                        <Controller
+                                                            name="tan"
+                                                            control={control}
+                                                            rules={{
+                                                                required: 'TAN Number is required',
+                                                                pattern: {
+                                                                    value: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+                                                                    message: 'Please enter a valid TAN number in the format AAAAA0000A',
+                                                                },
+                                                            }}
+                                                            render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                                <InputBox
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    label="TAN Number"
+                                                                    name="tan"
+                                                                    placeholder="AAAA00000A"
+                                                                    error={error}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid size={{ xs: 4, md: 4 }}>
+                                        <Grid container spacing={1}>
+                                            <FileUpload />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                {/*  */}
+                                {/* -------------------- Third Grid -------------------- */}
+                                {/*  */}
+                                <Grid container spacing={1}>
+                                    <Grid container spacing={1} size={{ xs: 12, md: 12 }}>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="email"
+                                                control={control}
+                                                rules={{
+                                                    required: 'E-Mail is required',
+                                                    pattern: {
+                                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                                        message: 'Please enter a valid email address',
+                                                    },
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                    <InputBox
+                                                        value={value}
                                                         onChange={onChange}
-                                                        error={invalid}
-                                                        helperText={invalid && error.message}
+                                                        label="E-Mail"
+                                                        name="email"
+                                                        placeholder="frescor@gmail.com"
+                                                        error={error}
                                                     />
-
-                                                </div>
-                                            );
-                                        }}
-                                    /> */}
-                                        <LogoUploader />
-                                    </div>
-                                </div>
-                                <div className='form-div'>
-                                    <div className="form-subdiv">
-                                        <Controller
-                                            name="email"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "E-Mail is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>E-Mail<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="ifscCode"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "IFSC Code is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>IFSC Code<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="form-subdiv">
-                                        <Controller
-                                            name="bankName"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Bank Name is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Bank Name<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="accountNumber"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Account Number is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '4px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Account Number<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="form-subdiv">
-                                        <Controller
-                                            name="accountHolderName"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Account Holder Name is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '5px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Account Holder Name<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                        <Controller
-                                            name="swiftCode"
-                                            control={control}
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: "Swift Code is requiured"
-                                                }
-                                            }}
-                                            render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                                return (
-                                                    <Box
-                                                        component="form"
-                                                        noValidate
-                                                        autoComplete="off"
-                                                        sx={{
-                                                            '& .MuiInputBase-root': { width: '40ch', margin: '5px' },
-                                                            '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                                            '& span': { color: 'red' },
-                                                        }}
-                                                    >
-                                                        <div>
-                                                            <p>Swift Code<span>*</span></p>
-                                                            <TextField
-                                                                value={value}
-                                                                onChange={onChange}
-                                                                error={invalid}
-                                                                helperText={invalid && error.message}
-                                                                sx={{
-                                                                    '& .MuiInputBase-input': { padding: '5px', border: '.5px solid #BDBFC7', borderRadius: '4px' },
-                                                                    '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </Box>
-                                                )
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className='form-div'>
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="bankName"
+                                                control={control}
+                                                rules={{
+                                                    required: 'Bank Name is required',
+                                                    pattern: {
+                                                        value: /^[A-Za-z\s]+$/,
+                                                        message: 'Bank name can only contain letters and spaces',
+                                                    },
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                    const handleInputChange = (e) => {
+                                                        const inputValue = e.target.value;
+                                                        const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
+                                                        onChange(filteredValue);
+                                                    };
+                                                    return (
+                                                        <InputBox
+                                                            value={value}
+                                                            onChange={handleInputChange}
+                                                            label="Bank Name"
+                                                            name="bankName"
+                                                            placeholder="Bank Name"
+                                                            error={error}
+                                                        />
+                                                    )
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="accountNumber"
+                                                control={control}
+                                                rules={{
+                                                    required: 'Account Number is required',
+                                                    pattern: {
+                                                        value: /^[0-9]{12}$/,
+                                                        message: 'Please enter a valid phone number in the format 9999 8888 7777',
+                                                    }
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                    const handleInputChange = (e) => {
+                                                        let inputValue = e.target.value;
+                                                        inputValue = inputValue.replace(/[^0-9]/g, '');
+                                                        if (inputValue.length > 12) {
+                                                            inputValue = inputValue.slice(0, 12);
+                                                        }
+                                                        onChange(inputValue);
+                                                    };
+                                                    return (
+                                                        <InputBox
+                                                            value={value}
+                                                            onChange={handleInputChange}
+                                                            label="Account Number"
+                                                            name="accountNumber"
+                                                            placeholder="9999 8888 7777"
+                                                            error={error}
+                                                        />
+                                                    );
+                                                }}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container spacing={1} size={{ xs: 12, md: 12 }}>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="ifscCode"
+                                                control={control}
+                                                rules={{
+                                                    required: 'IFSC Code is required',
+                                                    pattern: {
+                                                        value: /^[A-Z]{4}[0-9]{7}$/,
+                                                        message: 'Please enter a valid IFSC code in the format AAAA0000000',
+                                                    },
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                                    <InputBox
+                                                        value={value}
+                                                        onChange={onChange}
+                                                        label="IFSC Code"
+                                                        name="ifscCode"
+                                                        placeholder="AAAA0000000"
+                                                        error={error}
+                                                    />
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="accountHolderName"
+                                                control={control}
+                                                rules={{
+                                                    required: 'Account Holder Name is required',
+                                                    pattern: {
+                                                        value: /^[A-Za-z\s]+$/,
+                                                        message: 'Account holder name can only contain letters and spaces',
+                                                    },
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                    const handleInputChange = (e) => {
+                                                        const inputValue = e.target.value;
+                                                        const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
+                                                        onChange(filteredValue);
+                                                    };
+                                                    return (
+                                                        <InputBox
+                                                            value={value}
+                                                            onChange={handleInputChange}
+                                                            label="Account Holder Name"
+                                                            name="accountHolderName"
+                                                            placeholder="Jhon Smith"
+                                                            error={error}
+                                                        />
+                                                    )
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid size={{ xs: 4, md: 4 }}>
+                                            <Controller
+                                                name="swiftCode"
+                                                control={control}
+                                                rules={{
+                                                    required: 'Swift Code is required',
+                                                    pattern: {
+                                                        value: /^[A-Z]{11}$/,
+                                                        message: 'Please enter a valid Swift Code in the format AAAABBCCDDD',
+                                                    },
+                                                }}
+                                                render={({ field: { value, onChange }, fieldState: { error } }) => {
+                                                    const handleInputChange = (e) => {
+                                                        const inputValue = e.target.value;
+                                                        const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
+                                                        onChange(filteredValue);
+                                                    };
+                                                    return (
+                                                        <InputBox
+                                                            value={value}
+                                                            onChange={handleInputChange}
+                                                            label="Swift Code"
+                                                            name="swiftCode"
+                                                            placeholder="AAAABBCCDDD"
+                                                            error={error}
+                                                        />
+                                                    )
+                                                }}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                {/*  */}
+                                {/* -------------------- Fourth Grid -------------------- */}
+                                {/*  */}
+                                <Grid container spacing={1}>
                                     <Controller
                                         name="address"
                                         control={control}
-                                        rules={{
-                                            required: false
-                                        }}
-                                        render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                                            return (
-                                                <Box
-                                                    component="form"
-                                                    noValidate
-                                                    autoComplete="off"
-                                                    sx={{
-                                                        '& .MuiInputBase-root': { width: '127ch', height: '10ch' },
-                                                        '& p': { fontSize: '14px', fontWeight: '500', },
-                                                        '& span': { color: 'red' },
-                                                    }}
-                                                >
-                                                    <div>
-                                                        <p>Address</p>
-                                                        <TextField
-                                                            value={value}
-                                                            onChange={onChange}
-                                                            error={invalid}
-                                                            helperText={invalid && error.message}
-                                                            sx={{
-                                                                '& .MuiInputBase-input': { padding: '10px' },
-                                                                '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                                            }}
-                                                        />
-                                                    </div>
-                                                </Box>
-                                            )
-                                        }}
+                                        render={({ field: { value, onChange }, fieldState: { error } }) => (
+                                            <InputBox
+                                                value={value}
+                                                onChange={onChange}
+                                                label="Address"
+                                                name="address"
+                                                placeholder="Address"
+                                                error={error}
+                                            />
+                                        )}
                                     />
-                                </div>
-                            </div>
+                                </Grid>
+                                {/*  */}
 
+                            </div>
                             <div className='form-btn'>
-                                <button className='btn-back' onClick={goToHome}>Back</button>
-                                <button className='btn-submit' type="submit">Save</button>
+                                <button className='last-btn' type="button" onClick={goToHome}>Back</button>
+                                <button className='add' type="submit">Save</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

@@ -43,14 +43,10 @@
 
 .form {
     width: 450px;
-    height: 250px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
     font-family: "Poppins", serif;
-}
-
-.input1 {
-    border: 1.5px solid #BDBFC7;
 }
 
 .form p {
@@ -60,6 +56,8 @@
 .form input {
     padding: 10px 20px;
     border-radius: 5px;
+    border: 1.5px solid #BDBFC7;
+    width: 405px;
 }
 
 .form button {
@@ -87,26 +85,40 @@
     color: #606A72;
 }
 
-.verify {
-    border: 2px solid #BDBFC7;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.input-container {
+    position: relative;
+    width: 365px;
+
 }
 
-.verify input {
-    border: none;
+.input1 {
+    width: 100%;
+    font-size: 16px;
+    color: #666;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    background: #f9f9f9;
 }
 
-.verify input:hover {
-    border: #BDBFC7;
+.input1:read-only {
+    color: #999;
+    background: #f0f0f0;
+    cursor: not-allowed;
 }
 
 .icon {
-    font-size: 24px;
-    padding-right: 10px;
+    position: absolute;
+    top: 70%;
+    right: -20px;
+    transform: translateY(-50%);
     color: #405189;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.icon:hover {
+    color: #000;
 }
 
 .otp {
@@ -118,7 +130,6 @@
 .otp input {
     width: 7px;
     height: 30px;
-    /* box-sizing: border-box; */
     border: 2px solid #BDBFC7;
 }
 
@@ -132,6 +143,10 @@
         font-weight: 600;
         font-size: 30px;
         padding-bottom: 10px;
+    }
+
+    .form input {
+        width: 228px;
     }
 
     .p2 {
@@ -159,7 +174,7 @@
     .otp input {
         width: 15px;
         height: 15px;
-        padding: 10px 10px;
+        padding: 9.1px;
         text-align: center;
     }
 
@@ -167,8 +182,9 @@
         font-size: 12px;
     }
 
-    .input1 {
-        font-size: 12px;
+    .input-container {
+        position: relative;
+        width: 230px;
     }
 
 }
@@ -190,6 +206,11 @@
         width: 230px;
     }
 
+    .form input {
+        width: 189px;
+    }
+
+
     .loginpage-div input {
         font-size: 10px;
     }
@@ -208,15 +229,16 @@
         width: 10px;
         height: 10px;
         padding: 10px 10px;
-        text-align: center; 
+        text-align: center;
     }
 
     .form p {
         font-size: 8px;
     }
 
-    .input1 {
-        font-size: 8px;
+    .input-container {
+        position: relative;
+        width: 180px;
     }
 
 

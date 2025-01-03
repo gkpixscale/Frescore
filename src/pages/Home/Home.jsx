@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import logo from '../../assets/frescor 1.png';
 import notification from '../../assets/notification.png';
@@ -11,7 +11,7 @@ import frame3 from '../../assets/Frame3.png';
 import frame4 from '../../assets/Frame4.png';
 import frame5 from '../../assets/Frame5.png';
 import frame6 from '../../assets/Frame6.png';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/layout/layout';
 
 const Home = () => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);

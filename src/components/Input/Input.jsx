@@ -1,75 +1,42 @@
-import React from 'react'
-import { TextField } from "@mui/material"
-import { Controller, useForm } from "react-hook-form"
-import Box from '@mui/material/Box';
-const Input = () => {
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            companyName: "",
-            legalName: "",
-            logoUpload: "",
-            phoneNumber: "",
-            alternativePhoneNumber: "",
-            gst: "",
-            pan: "",
-            cin: "",
-            tan: "",
-            email: "",
-            bankName: "",
-            accountNumber: "",
-            ifscCode: "",
-            accountHolderName: "",
-            swiftCode: "",
-            address: ""
-        },
-        mode: "onChange"
-    });
+import React from 'react';
+import TextField from "@mui/material/TextField"
+import FormControl from "@mui/material/FormControl";
+
+const InputBox = ({
+    label = '',
+    name='',
+    placeholder = '',
+    value,
+    onChange,
+    error,
+}) => {
     return (
-        <div>
-            <Controller
-                name="companyName"
-                control={control}
-                rules={{
-                    required: {
-                        value: true,
-                        message: "Company Name is required"
-                    }
-                }}
-                render={({ field: { value, onChange }, fieldState: { error, invalid } }) => {
-                    return (
-                        <Box
-                            component="form"
-                            noValidate
-                            autoComplete="off"
-                            sx={{
-                                '& .MuiInputBase-root': { width: '', margin: '4px' },
-                                '& p': { fontSize: '14px', fontWeight: '500', marginLeft: '4px' },
-                                '& span': { color: 'red' },
-                            }}
-                        >
-                            <div>
-                                <p>
-                                    Company Name<span>*</span>
-                                </p>
-                                <TextField
-                                    fullWidth={true}
-                                    value={value}
-                                    onChange={onChange}
-                                    placeholder='Company Name'
-                                    error={invalid}
-                                    helperText={invalid && error.message}
-                                    sx={{
-                                        '& .MuiInputBase-input': { padding: '5px', border: '1px  #BDBFC7', borderRadius: '4px' },
-                                        '& .MuiFormHelperText-root': { color: 'red', fontSize: '12px' },
-                                    }}
-                                />
-                            </div>
-                        </Box>
-                    );
+        <FormControl fullWidth>
+            <label>{label}</label>
+            <TextField
+                variant='outlined'
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+                error={!!error}
+                size='small'
+                helperText={error ? error.message : ''}
+                sx={{
+                    '& .MuiInputBase-input': {
+                        border: '1px solid #BDBFC7',
+                        borderRadius: '4px',
+                        fontSize: '1rem',
+                        '@media (max-width: 1024px)': {
+                            fontSize: '0.900rem',
+                        },
+                        '@media (max-width: 768px)': {
+                            fontSize: '0.775rem',
+                        },
+                    },
                 }}
             />
-        </div>
-    )
-}
+        </FormControl>
+    );
+};
 
-export default Input
+export default InputBox;

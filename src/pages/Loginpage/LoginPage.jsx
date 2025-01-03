@@ -55,34 +55,33 @@ const LoginPage = () => {
                     <h1>Log In to Frescor</h1>
                     {!isOtpSent ? (
                         <form onSubmit={handleGetOtp} className="form">
-                            <p>Mobile Number</p>
-                            <input
-                                className='input1'
-                                type="text"
-                                placeholder="+91 99999 88888"
-                                value={mobileNumber}
-                                onChange={(e) => setMobileNumber(e.target.value)}
-                                maxLength="10"
-                            />
-                            <br />
+                            <div >
+                                <p>Mobile Number</p>
+                                <input
+                                    className='input-size'
+                                    type="text"
+                                    placeholder="+91 99999 88888"
+                                    value={mobileNumber}
+                                    onChange={(e) => setMobileNumber(e.target.value)}
+                                    maxLength="10"
+                                />
+                            </div>
                             <button type="submit">Get OTP</button>
                         </form>
                     ) : (
                         <form onSubmit={handleVerifyOtp} className="form">
                             <p className="p2" >OTP is sent to <span className='span'> +91 99999 888888</span></p>
-                            <br />
-                            <p >Mobile Number</p>
-                            <div className="verify">
+                            <div className="input-container">
+                                <p >Mobile Number</p>
                                 <input
-                                    className='input1'
+                                    className="input1"
                                     type="text"
                                     placeholder="+91 99999 88888"
-                                    // value={mobileNumber}
                                     readOnly
                                 />
                                 <i className="fa-regular fa-pen-to-square icon"></i>
                             </div>
-                            <br />
+
                             <p>Enter OTP</p>
                             <div className="otp">
                                 {otp.map((digit, index) => (
@@ -99,9 +98,7 @@ const LoginPage = () => {
                                     />
                                 ))}
                             </div>
-                            <br />
                             <p className="p2"><span className='span'>Don't receive OTP?</span> 00:59</p>
-                            <br />
                             <button type="submit">Verify</button>
                         </form>
                     )}
